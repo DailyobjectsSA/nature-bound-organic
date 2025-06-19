@@ -49,22 +49,19 @@
 
         /* Styles for the video carousel */
         #product-carousel {
-            /* These styles are applied directly to the container to manage its layout */
-            display: block; /* Changed from flex, as individual items handle absolute positioning */
-            position: relative; /* Essential for absolute positioning of children */
+            display: block;
+            position: relative;
         }
         .carousel-item {
-            flex: 0 0 100%; /* Each item takes full width of its container (if flex was used) */
-            max-width: 100%;
             position: absolute; /* Stack items on top of each other */
             inset: 0; /* Cover the entire parent carousel area */
-            display: none; /* Hide all items by default */
             transition: opacity 1s ease-in-out; /* Smooth fade transition */
-            opacity: 0;
+            opacity: 0; /* Hidden by default */
+            pointer-events: none; /* Prevent interaction when hidden */
         }
         .carousel-item.active {
-            display: block; /* Show the active item */
             opacity: 1; /* Make active item fully visible */
+            pointer-events: auto; /* Allow interaction when active */
         }
         .carousel-item video {
             width: 100%; /* Video fills its item's width */
@@ -112,7 +109,7 @@
             <a href="#cart" class="text-gray-600 hover:text-teal-600 transition-colors duration-200 flex items-center space-x-1">
                 <!-- Cart icon (SVG) -->
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                 </svg>
                 <span>Cart</span>
             </a>
@@ -135,14 +132,14 @@
     <section class="w-full relative overflow-hidden bg-gray-100 py-6">
         <div id="product-carousel" class="w-full h-64 md:h-96 relative">
             <!-- Video Carousel Item 1 -->
-            <div class="carousel-item active absolute inset-0">
+            <div class="carousel-item active">
                 <video autoplay loop muted playsinline class="w-full h-full object-cover rounded-lg shadow-lg">
                     <source src="images/Banner-vid-1.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
             <!-- Video Carousel Item 2 -->
-            <div class="carousel-item absolute inset-0">
+            <div class="carousel-item">
                 <video autoplay loop muted playsinline class="w-full h-full object-cover rounded-lg shadow-lg">
                     <source src="images/Banner-vid-2.mp4" type="video/mp4">
                     Your browser does not support the video tag.
@@ -150,11 +147,8 @@
             </div>
         </div>
 
-        <!-- Carousel Navigation Dots -->
-        <div class="carousel-dots absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
-            <button class="carousel-dot w-3 h-3 bg-gray-500 rounded-full hover:bg-gray-700 transition-colors duration-200"></button>
-            <button class="carousel-dot w-3 h-3 bg-gray-500 rounded-full hover:bg-gray-700 transition-colors duration-200"></button>
-        </div>
+        <!-- Carousel Navigation Dots removed -->
+        <!-- The carousel-dots div was removed as per user request to make it one continuous video -->
     </section>
 
     <!-- Main Content Area -->
@@ -224,35 +218,36 @@
         document.addEventListener('DOMContentLoaded', function() {
             const carousel = document.getElementById('product-carousel');
             const items = carousel.querySelectorAll('.carousel-item');
-            // FIX: Added the 'carousel-dots' class to the div in HTML
-            const dotsContainer = document.querySelector('.carousel-dots');
-            const dots = dotsContainer.querySelectorAll('.carousel-dot');
             let currentIndex = 0;
-            let intervalTime = 5000; // 5 seconds
+            // Set interval time based on the video durations.
+            // Adjust this if your videos are exactly X seconds long to ensure smooth loop.
+            const transitionDuration = 1000; // Corresponds to CSS transition: opacity 1s
+            const displayDuration = 4000; // How long each video is fully visible
+            const intervalTime = displayDuration + transitionDuration; // Total time for one cycle
+
             let slideInterval;
 
             function showSlide(index) {
-                // Hide all items
-                items.forEach(item => item.classList.remove('active'));
-                // Remove active class from all dots
-                dots.forEach(dot => dot.classList.remove('bg-teal-600', 'scale-125'));
-                dots.forEach(dot => dot.classList.add('bg-gray-500'));
-
-                // Show the selected item
-                items[index].classList.add('active');
-                // Set active class on the corresponding dot
-                dots[index].classList.remove('bg-gray-500');
-                dots[index].classList.add('bg-teal-600', 'scale-125');
-
-                // Ensure video plays when active, and pauses/resets when not active
+                // Ensure only the current video's container is active
                 items.forEach((item, i) => {
                     const video = item.querySelector('video');
-                    if (video) {
-                        if (i === index) {
-                            video.play();
-                        } else {
-                            video.pause();
+                    if (i === index) {
+                        item.classList.add('active'); // Activate for opacity: 1
+                        if (video) {
                             video.currentTime = 0; // Reset video to start
+                            video.play().catch(error => {
+                                // Catch AbortError which is common if play() is called when not fully ready
+                                if (error.name !== 'AbortError') {
+                                    console.error("Video play error:", error);
+                                }
+                            });
+                        }
+                    } else {
+                        item.classList.remove('active'); // Deactivate for opacity: 0
+                        const video = item.querySelector('video');
+                        if (video) {
+                            video.pause();
+                            video.currentTime = 0; // Reset inactive videos
                         }
                     }
                 });
@@ -264,36 +259,20 @@
             }
 
             function startSlideShow() {
-                // Clear any existing interval to prevent multiple intervals running
-                clearInterval(slideInterval);
+                clearInterval(slideInterval); // Clear any existing interval
                 slideInterval = setInterval(nextSlide, intervalTime);
             }
 
-            function pauseSlideShow() {
-                clearInterval(slideInterval);
-            }
-
-            // Event listeners for dots
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
-                    pauseSlideShow();
-                    currentIndex = index;
-                    showSlide(currentIndex);
-                    startSlideShow(); // Restart slideshow after manual navigation
-                });
-            });
-
-            // Initial display and start slideshow
+            // Initial display and start slideshow if there are items
             if (items.length > 0) {
                 showSlide(currentIndex);
                 startSlideShow();
             }
 
-            // Pause slideshow on hover and resume when not hovering
-            // Only add if carousel.parentElement exists and is a valid target
-            if (carousel && carousel.parentElement) {
-                carousel.parentElement.addEventListener('mouseenter', pauseSlideShow);
-                carousel.parentElement.addEventListener('mouseleave', startSlideShow);
+            // Optional: Pause slideshow on hover and resume when not hovering
+            if (carousel) {
+                carousel.addEventListener('mouseenter', () => clearInterval(slideInterval));
+                carousel.addEventListener('mouseleave', startSlideShow);
             }
         });
     </script>
