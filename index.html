@@ -39,6 +39,20 @@
         .logo-glitter {
             animation: glitterGlow 3s infinite alternate; /* Apply animation to the logo */
         }
+
+        /* Button Glow Effect */
+        @keyframes buttonGlow {
+            0%, 100% {
+                box-shadow: 0 0 5px rgba(0, 128, 128, 0.5); /* Subtle teal glow */
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(0, 128, 128, 0.9), 0 0 30px rgba(0, 192, 192, 0.7); /* Stronger teal glow */
+            }
+        }
+
+        .btn-glow {
+            animation: buttonGlow 2s infinite alternate;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col font-sans">
@@ -78,7 +92,7 @@
             <a href="#cart" class="text-gray-600 hover:text-teal-600 transition-colors duration-200 flex items-center space-x-1">
                 <!-- Cart icon (SVG) -->
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                 </svg>
                 <span>Cart</span>
             </a>
@@ -102,7 +116,7 @@
         <div id="product-carousel" class="w-full">
             <!-- Carousel Item 1 (Now only one item) -->
             <div class="carousel-item active w-full">
-                <img src="images/Banner-1.jpeg" alt="Nature Bound Organic Banner" class="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"> <!-- Height increased -->
+                <img src="images/Banner-1.jpeg" alt="Nature Bound Organic Banner" class="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg">
             </div>
         </div>
 
@@ -127,24 +141,38 @@
                 Explore Our Organic Soaps
             </a>
 
-            <!-- Placeholder for future product section -->
+            <!-- Product Section -->
             <section id="products" class="mt-16 pt-8 border-t border-gray-200">
                 <h2 class="text-3xl font-bold text-gray-800 mb-8">Our Products (Coming Soon!)</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-gray-50 p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                    <!-- Product Card 1: Lavender Bliss Soap -->
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center">
                         <img src="https://placehold.co/300x200/9AE6B4/1A202C?text=Soap+Bar+1" alt="Organic Lavender Bliss Soap Bar" class="rounded-lg mb-4 w-full object-cover h-40">
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Lavender Bliss Soap</h3>
-                        <p class="text-gray-600 text-sm">Relaxing lavender scent, nourishing olive oil.</p>
+                        <p class="text-gray-600 text-sm mb-4">Relaxing lavender scent, nourishing olive oil.</p>
+                        <button class="bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 px-6 rounded-full transition duration-300 ease-in-out btn-glow w-full mt-auto">
+                            Shop Now
+                        </button>
                     </div>
-                    <div class="bg-gray-50 p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
-                        <img src="https://placehold.co/300x200/81E6D9/1A202C?text=Soap+Bar+2" alt="Organic Citrus Zest Soap Bar" class="rounded-lg mb-4 w-full object-cover h-40">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Citrus Zest Soap</h3>
-                        <p class="text-gray-600 text-sm">Uplifting citrus aroma, invigorating with shea butter.</p>
+
+                    <!-- Product Card 2: Organic Goat Milk Soap -->
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center">
+                        <img src="https://placehold.co/300x200/81E6D9/1A202C?text=Soap+Bar+2" alt="Organic Goat Milk Soap Bar" class="rounded-lg mb-4 w-full object-cover h-40">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Organic Goat Milk Soap</h3>
+                        <p class="text-gray-600 text-sm mb-4">Creamy and nourishing, perfect for sensitive skin.</p>
+                        <button class="bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 px-6 rounded-full transition duration-300 ease-in-out btn-glow w-full mt-auto">
+                            Shop Now
+                        </button>
                     </div>
-                    <div class="bg-gray-50 p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
-                        <img src="https://placehold.co/300x200/B2F5EA/1A202C?text=Soap+Bar+3" alt="Organic Oatmeal & Honey Soap Bar" class="rounded-lg mb-4 w-full object-cover h-40">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Oatmeal & Honey Soap</h3>
-                        <p class="text-gray-600 text-sm">Soothing for sensitive skin, pure and gentle.</p>
+
+                    <!-- Product Card 3: Organic Manjistha Nalpamaradi soap -->
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center">
+                        <img src="https://placehold.co/300x200/B2F5EA/1A202C?text=Soap+Bar+3" alt="Organic Manjistha Nalpamaradi Soap Bar" class="rounded-lg mb-4 w-full object-cover h-40">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Organic Manjistha Nalpamaradi soap</h3>
+                        <p class="text-gray-600 text-sm mb-4">Made with natural Manjistha powder and extracts, Nalpamaradi oil, coconut oil, olive oil and essential oil.</p>
+                        <button class="bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 px-6 rounded-full transition duration-300 ease-in-out btn-glow w-full mt-auto">
+                            Shop Now
+                        </button>
                     </div>
                 </div>
             </section>
