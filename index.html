@@ -26,12 +26,12 @@
 </head>
 <body class="min-h-screen flex flex-col font-sans">
     <!-- Header Section -->
-    <header class="bg-white text-gray-800 p-4 flex items-center justify-between shadow-lg">
+    <header class="bg-white text-gray-800 py-2 px-4 flex items-center justify-between shadow-lg"> <!-- Changed p-4 to py-2 px-4 -->
         <!-- Logo on the left -->
         <div class="flex items-center">
-            <!-- Replaced text logo with image logo -->
             <a href="#">
-                <img src="images/LOGO.jpeg" alt="Nature Bound Organic Logo" class="h-20 w-auto rounded-md"> <!-- Increased height to h-20 -->
+                <!-- Removed rounded-md from logo. For best results with "no background", use a transparent PNG logo. -->
+                <img src="images/LOGO.jpeg" alt="Nature Bound Organic Logo" class="h-20 w-auto"> <!-- Kept h-20, removed rounded-md -->
             </a>
         </div>
 
