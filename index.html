@@ -82,11 +82,11 @@
     </nav>
 
     <!-- Moving Banners / Product Carousel -->
-    <section class="w-full relative overflow-hidden bg-gray-100 py-6 flex justify-center">
-        <div id="product-carousel" class="flex">
+    <section class="w-full relative overflow-hidden bg-gray-100 py-6">
+        <div id="product-carousel" class="flex justify-center items-center"> <!-- Added justify-center and items-center to parent div -->
             <!-- Carousel Item 1 (Now only one item) -->
-            <div class="carousel-item active flex justify-center items-center">
-                <img src="images/Banner-1.jpeg" alt="Nature Bound Organic Banner" class="rounded-lg shadow-lg" width="1024" height="1024"> <!-- Fixed width and height -->
+            <div class="carousel-item active"> <!-- Removed flex and justify-center from here, as parent now handles it -->
+                <img src="images/Banner-1.jpeg" alt="Nature Bound Organic Banner" class="w-full h-auto rounded-lg shadow-lg"> <!-- Removed fixed heights and object-cover -->
             </div>
         </div>
 
