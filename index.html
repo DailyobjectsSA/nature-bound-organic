@@ -22,9 +22,39 @@
         .carousel-item.active {
             display: block; /* Show the active item */
         }
+
+        /* Splash Screen Animation Styles */
+        #splash-screen {
+            background-color: white; /* Match the header background */
+        }
+
+        .splash-logo {
+            max-width: 90vw; /* Ensure it fits within viewport */
+            max-height: 90vh; /* Ensure it fits within viewport */
+            width: auto;
+            height: auto;
+            object-fit: contain; /* Contain the entire image without cropping */
+            animation: zoomOutAndFade 1.5s forwards; /* Animation duration and state retention */
+        }
+
+        @keyframes zoomOutAndFade {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.2); /* Zooms out to a small size */
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col font-sans">
+    <!-- Splash Screen (appears first) -->
+    <div id="splash-screen" class="fixed inset-0 flex items-center justify-center z-50">
+        <img src="images/LOGO.jpeg" alt="Nature Bound Organic Logo" class="splash-logo">
+    </div>
+
     <!-- Header Section -->
     <header class="bg-white text-gray-800 py-2 px-4 flex items-center justify-between shadow-lg">
         <!-- Logo on the left -->
@@ -61,7 +91,7 @@
             <a href="#cart" class="text-gray-600 hover:text-teal-600 transition-colors duration-200 flex items-center space-x-1">
                 <!-- Cart icon (SVG) -->
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                 </svg>
                 <span>Cart</span>
             </a>
@@ -85,7 +115,7 @@
         <div id="product-carousel" class="w-full">
             <!-- Carousel Item 1 (Now only one item) -->
             <div class="carousel-item active w-full">
-                <img src="images/Banner-1.jpeg" alt="Nature Bound Organic Banner" class="w-full h-48 md:h-64 object-cover rounded-lg shadow-lg"> <!-- Applied fixed height with object-cover -->
+                <img src="images/Banner-1.jpeg" alt="Nature Bound Organic Banner" class="w-full h-48 md:h-64 object-cover rounded-lg shadow-lg">
             </div>
         </div>
 
@@ -143,8 +173,13 @@
     </main>
 
     <script>
-        // Removed carousel JavaScript as there's only one banner now.
-        // If you re-add multiple banners, you'll need to put this script back.
+        document.addEventListener('DOMContentLoaded', function() {
+            const splashScreen = document.getElementById('splash-screen');
+            // The animation is applied via CSS, this JS simply hides it after the animation duration.
+            setTimeout(() => {
+                splashScreen.style.display = 'none';
+            }, 1500); // Matches the 1.5s animation duration in CSS
+        });
     </script>
 </body>
 </html>
