@@ -7,57 +7,118 @@
     <!-- Tailwind CSS CDN for easy styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom CSS for the Inter font */
+        /* Custom CSS for the Inter font - ensuring it's applied globally */
         body {
             font-family: 'Inter', sans-serif;
         }
+        /* Further styling for a modern feel (subtle adjustments) */
+        .shadow-custom-lg {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
     </style>
 </head>
-<body class="bg-gradient-to-r from-green-400 to-teal-500 min-h-screen flex items-center justify-center p-4">
-    <div class="bg-white p-8 rounded-lg shadow-xl text-center max-w-2xl w-full">
-        <h1 class="text-5xl font-bold text-gray-800 mb-4">Welcome to Nature Bound Organic!</h1>
-        <p class="text-xl text-gray-700 mb-6 leading-relaxed">
-            Discover the purity and goodness of nature with our handcrafted organic soaps.
-            Made with the finest natural ingredients, our soaps gently cleanse and nourish your skin,
-            leaving it feeling refreshed and revitalized.
-        </p>
-        <p class="text-lg text-gray-600 mb-8">
-            Embrace a healthier, more sustainable lifestyle with products that are kind to you and the planet.
-        </p>
-        <a href="#products"
-           class="inline-block bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
-            Explore Our Organic Soaps
-        </a>
+<body class="min-h-screen flex flex-col font-sans">
+    <!-- Header Section -->
+    <header class="bg-gray-800 text-white p-4 flex items-center justify-between shadow-lg">
+        <!-- Logo on the left -->
+        <div class="flex items-center">
+            <!-- For now, a text logo. You can replace this with an <img> tag later. -->
+            <a href="#" class="text-2xl font-bold text-green-300">Nature Bound Organic</a>
+        </div>
 
-        <!-- Placeholder for future product section -->
-        <section id="products" class="mt-12 pt-8 border-t border-gray-200">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">Our Products (Coming Soon!)</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-gray-50 p-6 rounded-lg shadow-md">
-                    <img src="https://placehold.co/300x200/9AE6B4/1A202C?text=Soap+Bar+1" alt="Organic Soap Bar 1" class="rounded-lg mb-4 w-full">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Lavender Bliss Soap</h3>
-                    <p class="text-gray-600 text-sm">Relaxing lavender scent, nourishing olive oil.</p>
-                </div>
-                <div class="bg-gray-50 p-6 rounded-lg shadow-md">
-                    <img src="https://placehold.co/300x200/81E6D9/1A202C?text=Soap+Bar+2" alt="Organic Soap Bar 2" class="rounded-lg mb-4 w-full">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Citrus Zest Soap</h3>
-                    <p class="text-gray-600 text-sm">Uplifting citrus aroma, invigorating with shea butter.</p>
-                </div>
-                <div class="bg-gray-50 p-6 rounded-lg shadow-md">
-                    <img src="https://placehold.co/300x200/B2F5EA/1A202C?text=Soap+Bar+3" alt="Organic Soap Bar 3" class="rounded-lg mb-4 w-full">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Oatmeal & Honey Soap</h3>
-                    <p class="text-gray-600 text-sm">Soothing for sensitive skin, pure and gentle.</p>
-                </div>
+        <!-- Search Bar and Navigation Links in the center/right -->
+        <div class="flex items-center space-x-4">
+            <!-- Search Bar -->
+            <div class="relative">
+                <input type="text" placeholder="Search for products..."
+                       class="py-2 px-4 pr-10 rounded-full bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-teal-400 focus:bg-white focus:text-gray-900 transition-colors duration-200 w-full md:w-64 placeholder-gray-400">
+                <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white">
+                    <!-- Search icon (SVG) -->
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </button>
             </div>
-        </section>
 
-        <!-- Placeholder for future about section -->
-        <section id="about" class="mt-12 pt-8 border-t border-gray-200">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">About Nature Bound Organic (More Details Soon!)</h2>
-            <p class="text-lg text-gray-600">
-                At Nature Bound Organic, we are committed to creating high-quality, eco-friendly soaps that nurture your skin and respect the environment. Our passion for natural ingredients drives us to craft products that you can trust.
+            <!-- Account Link -->
+            <a href="#account" class="text-gray-300 hover:text-white transition-colors duration-200 hidden md:flex items-center space-x-1">
+                <!-- Account icon (SVG) -->
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                </svg>
+                <span>Account</span>
+            </a>
+
+            <!-- Cart Link -->
+            <a href="#cart" class="text-gray-300 hover:text-white transition-colors duration-200 flex items-center space-x-1">
+                <!-- Cart icon (SVG) -->
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                </svg>
+                <span>Cart</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white p-4 shadow-md border-b border-gray-200">
+        <ul class="flex flex-wrap justify-center space-x-4 sm:space-x-6 md:space-x-8 text-lg font-semibold text-gray-700">
+            <li><a href="#" class="hover:text-teal-600 transition-colors duration-200 px-3 py-2 rounded-md">Home</a></li>
+            <li><a href="#about" class="hover:text-teal-600 transition-colors duration-200 px-3 py-2 rounded-md">About Us</a></li>
+            <li><a href="#our-story" class="hover:text-teal-600 transition-colors duration-200 px-3 py-2 rounded-md">Our Story</a></li>
+            <li><a href="#new-in" class="hover:text-teal-600 transition-colors duration-200 px-3 py-2 rounded-md">New In</a></li>
+            <li><a href="#shop-all" class="hover:text-teal-600 transition-colors duration-200 px-3 py-2 rounded-md">Shop All</a></li>
+            <li><a href="#gifting" class="hover:text-teal-600 transition-colors duration-200 px-3 py-2 rounded-md">Gifting</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="bg-gradient-to-r from-green-400 to-teal-500 flex-grow flex items-center justify-center py-12 px-4">
+        <div class="bg-white p-8 rounded-lg shadow-xl text-center max-w-2xl w-full">
+            <h1 class="text-5xl font-bold text-gray-800 mb-4">Welcome to Nature Bound Organic!</h1>
+            <p class="text-xl text-gray-700 mb-6 leading-relaxed">
+                Discover the purity and goodness of nature with our handcrafted organic soaps.
+                Made with the finest natural ingredients, our soaps gently cleanse and nourish your skin,
+                leaving it feeling refreshed and revitalized.
             </p>
-        </section>
-    </div>
+            <p class="text-lg text-gray-600 mb-8">
+                Embrace a healthier, more sustainable lifestyle with products that are kind to you and the planet.
+            </p>
+            <a href="#products"
+               class="inline-block bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-custom-lg">
+                Explore Our Organic Soaps
+            </a>
+
+            <!-- Placeholder for future product section -->
+            <section id="products" class="mt-16 pt-8 border-t border-gray-200">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8">Our Products (Coming Soon!)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                        <img src="https://placehold.co/300x200/9AE6B4/1A202C?text=Soap+Bar+1" alt="Organic Lavender Bliss Soap Bar" class="rounded-lg mb-4 w-full object-cover h-40">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Lavender Bliss Soap</h3>
+                        <p class="text-gray-600 text-sm">Relaxing lavender scent, nourishing olive oil.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                        <img src="https://placehold.co/300x200/81E6D9/1A202C?text=Soap+Bar+2" alt="Organic Citrus Zest Soap Bar" class="rounded-lg mb-4 w-full object-cover h-40">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Citrus Zest Soap</h3>
+                        <p class="text-gray-600 text-sm">Uplifting citrus aroma, invigorating with shea butter.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                        <img src="https://placehold.co/300x200/B2F5EA/1A202C?text=Soap+Bar+3" alt="Organic Oatmeal & Honey Soap Bar" class="rounded-lg mb-4 w-full object-cover h-40">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Oatmeal & Honey Soap</h3>
+                        <p class="text-gray-600 text-sm">Soothing for sensitive skin, pure and gentle.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Placeholder for future about section -->
+            <section id="about" class="mt-16 pt-8 border-t border-gray-200">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">About Nature Bound Organic (More Details Soon!)</h2>
+                <p class="text-lg text-gray-600">
+                    At Nature Bound Organic, we are committed to creating high-quality, eco-friendly soaps that nurture your skin and respect the environment. Our passion for natural ingredients drives us to craft products that you can trust.
+                </p>
+            </section>
+        </div>
+    </main>
 </body>
 </html>
