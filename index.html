@@ -84,26 +84,14 @@
     <!-- Moving Banners / Product Carousel -->
     <section class="w-full relative overflow-hidden bg-gray-100 py-6">
         <div id="product-carousel" class="flex transition-transform duration-1000 ease-in-out">
-            <!-- Carousel Item 1 -->
+            <!-- Carousel Item 1 (Now only one item) -->
             <div class="carousel-item active min-w-full flex justify-center items-center">
-                <img src="images/Banner 1.jpeg" alt="Nature Bound Organic Pure Ingredients Banner" class="w-full object-cover h-64 md:h-96 rounded-lg shadow-lg">
-            </div>
-            <!-- Carousel Item 2 -->
-            <div class="carousel-item min-w-full flex justify-center items-center">
-                <img src="images/Banner 2.jpeg" alt="Handcrafted Soaps for Healthy Skin Banner" class="w-full object-cover h-64 md:h-96 rounded-lg shadow-lg">
-            </div>
-            <!-- Carousel Item 3 -->
-            <div class="carousel-item min-w-full flex justify-center items-center">
-                <img src="images/Banner 3.jpeg" alt="Explore Our New Collection Banner" class="w-full object-cover h-64 md:h-96 rounded-lg shadow-lg">
+                <img src="images/Banner-1.jpeg" alt="Nature Bound Organic Banner" class="w-full object-cover h-72 md:h-112 rounded-lg shadow-lg">
             </div>
         </div>
 
-        <!-- Carousel Navigation Dots (Optional, but good for UX) -->
-        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-            <button class="carousel-dot w-3 h-3 bg-gray-500 rounded-full hover:bg-gray-700 transition-colors duration-200"></button>
-            <button class="carousel-dot w-3 h-3 bg-gray-500 rounded-full hover:bg-gray-700 transition-colors duration-200"></button>
-            <button class="carousel-dot w-3 h-3 bg-gray-500 rounded-full hover:bg-gray-700 transition-colors duration-200"></button>
-        </div>
+        <!-- Carousel Navigation Dots (Removed, as only one banner) -->
+        <!-- If you add more banners, you'll need to re-add the dots and corresponding JS logic. -->
     </section>
 
     <!-- Main Content Area -->
@@ -156,59 +144,8 @@
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const carousel = document.getElementById('product-carousel');
-            const items = document.querySelectorAll('.carousel-item');
-            const dots = document.querySelectorAll('.carousel-dot');
-            let currentIndex = 0;
-            let intervalTime = 5000; // 5 seconds
-            let slideInterval;
-
-            function showSlide(index) {
-                // Hide all items
-                items.forEach(item => item.classList.remove('active'));
-                // Remove active class from all dots
-                dots.forEach(dot => dot.classList.remove('bg-teal-600', 'scale-125'));
-                dots.forEach(dot => dot.classList.add('bg-gray-500'));
-
-                // Show the selected item
-                items[index].classList.add('active');
-                // Set active class on the corresponding dot
-                dots[index].classList.remove('bg-gray-500');
-                dots[index].classList.add('bg-teal-600', 'scale-125');
-            }
-
-            function nextSlide() {
-                currentIndex = (currentIndex + 1) % items.length;
-                showSlide(currentIndex);
-            }
-
-            function startSlideShow() {
-                slideInterval = setInterval(nextSlide, intervalTime);
-            }
-
-            function pauseSlideShow() {
-                clearInterval(slideInterval);
-            }
-
-            // Event listeners for dots
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
-                    pauseSlideShow();
-                    currentIndex = index;
-                    showSlide(currentIndex);
-                    startSlideShow(); // Restart slideshow after manual navigation
-                });
-            });
-
-            // Initial display
-            showSlide(currentIndex);
-            startSlideShow();
-
-            // Pause slideshow on hover and resume when not hovering
-            carousel.parentElement.addEventListener('mouseenter', pauseSlideShow);
-            carousel.parentElement.addEventListener('mouseleave', startSlideShow);
-        });
+        // Removed carousel JavaScript as there's only one banner now.
+        // If you re-add multiple banners, you'll need to put this script back.
     </script>
 </body>
 </html>
