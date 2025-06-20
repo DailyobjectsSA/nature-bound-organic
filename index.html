@@ -109,7 +109,7 @@
             <a href="#cart" class="text-gray-600 hover:text-teal-600 transition-colors duration-200 flex items-center space-x-1">
                 <!-- Cart icon (SVG) -->
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                 </svg>
                 <span>Cart</span>
             </a>
@@ -145,10 +145,30 @@
                     Your browser does not support the video tag.
                 </video>
             </div>
+            <!-- Video Carousel Item 3 -->
+            <div class="carousel-item">
+                <video autoplay loop muted playsinline class="w-full h-full object-cover rounded-lg shadow-lg">
+                    <source src="images/Banner-vid-3.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- Video Carousel Item 4 -->
+            <div class="carousel-item">
+                <video autoplay loop muted playsinline class="w-full h-full object-cover rounded-lg shadow-lg">
+                    <source src="images/Banner-vid-4.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- Video Carousel Item 5 -->
+            <div class="carousel-item">
+                <video autoplay loop muted playsinline class="w-full h-full object-cover rounded-lg shadow-lg">
+                    <source src="images/Banner-vid-5.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
         </div>
 
         <!-- Carousel Navigation Dots removed -->
-        <!-- The carousel-dots div was removed as per user request to make it one continuous video -->
     </section>
 
     <!-- Main Content Area -->
@@ -220,7 +240,7 @@
             const items = carousel.querySelectorAll('.carousel-item');
             let currentIndex = 0;
             // Set interval time based on the video durations.
-            // Adjust this if your videos are exactly X seconds long to ensure smooth loop.
+            // A good starting point for seamless transitions.
             const transitionDuration = 1000; // Corresponds to CSS transition: opacity 1s
             const displayDuration = 4000; // How long each video is fully visible
             const intervalTime = displayDuration + transitionDuration; // Total time for one cycle
@@ -228,29 +248,29 @@
             let slideInterval;
 
             function showSlide(index) {
-                // Ensure only the current video's container is active
-                items.forEach((item, i) => {
+                // First, pause all videos and hide all items
+                items.forEach(item => {
                     const video = item.querySelector('video');
-                    if (i === index) {
-                        item.classList.add('active'); // Activate for opacity: 1
-                        if (video) {
-                            video.currentTime = 0; // Reset video to start
-                            video.play().catch(error => {
-                                // Catch AbortError which is common if play() is called when not fully ready
-                                if (error.name !== 'AbortError') {
-                                    console.error("Video play error:", error);
-                                }
-                            });
-                        }
-                    } else {
-                        item.classList.remove('active'); // Deactivate for opacity: 0
-                        const video = item.querySelector('video');
-                        if (video) {
-                            video.pause();
-                            video.currentTime = 0; // Reset inactive videos
-                        }
+                    if (video) {
+                        video.pause();
+                        video.currentTime = 0; // Reset video to start for next loop
                     }
+                    item.classList.remove('active'); // Remove active class for opacity transition
                 });
+
+                // Then, activate the target slide and attempt to play its video
+                const activeItem = items[index];
+                activeItem.classList.add('active'); // Add active class to fade in
+                const activeVideo = activeItem.querySelector('video');
+                if (activeVideo) {
+                    activeVideo.play().catch(error => {
+                        // Catch AbortError which is common if play() is called when not fully ready
+                        // or if the user interacts with the page before playback starts.
+                        if (error.name !== 'AbortError') {
+                            console.error("Video play error:", error);
+                        }
+                    });
+                }
             }
 
             function nextSlide() {
@@ -270,6 +290,7 @@
             }
 
             // Optional: Pause slideshow on hover and resume when not hovering
+            // This is good for user experience so they can read/see the banner
             if (carousel) {
                 carousel.addEventListener('mouseenter', () => clearInterval(slideInterval));
                 carousel.addEventListener('mouseleave', startSlideShow);
