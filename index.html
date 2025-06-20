@@ -66,7 +66,7 @@
         .carousel-item video {
             width: 100%; /* Video fills its item's width */
             height: 100%; /* Video fills its item's height */
-            object-fit: contain; /* 'contain' ensures full video is visible, adding letterboxing if aspect ratios differ */
+            object-fit: cover; /* Changed from 'contain' to 'cover' to fill the banner area */
             border-radius: 0.5rem; /* Apply rounded-lg from Tailwind */
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Apply shadow-lg from Tailwind */
         }
@@ -130,38 +130,38 @@
 
     <!-- Moving Banners / Product Carousel -->
     <section class="w-full relative overflow-hidden bg-gray-100 py-6">
-        <div id="product-carousel" class="w-full h-[60vh] md:h-[70vh] relative"> <!-- Increased height using vh units -->
+        <div id="product-carousel" class="w-full h-[60vh] md:h-[70vh] relative">
             <!-- Video Carousel Item 1 -->
             <div class="carousel-item active">
-                <video autoplay loop muted playsinline class="w-full h-full object-contain rounded-lg shadow-lg">
+                <video autoplay loop muted playsinline class="w-full h-full object-cover rounded-lg shadow-lg">
                     <source src="images/Banner-vid-1.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
             <!-- Video Carousel Item 2 -->
             <div class="carousel-item">
-                <video autoplay loop muted playsinline class="w-full h-full object-contain rounded-lg shadow-lg">
+                <video autoplay loop muted playsinline class="w-full h-full object-cover rounded-lg shadow-lg">
                     <source src="images/Banner-vid-2.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
             <!-- Video Carousel Item 3 -->
             <div class="carousel-item">
-                <video autoplay loop muted playsinline class="w-full h-full object-contain rounded-lg shadow-lg">
+                <video autoplay loop muted playsinline class="w-full h-full object-cover rounded-lg shadow-lg">
                     <source src="images/Banner-vid-3.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
             <!-- Video Carousel Item 4 -->
             <div class="carousel-item">
-                <video autoplay loop muted playsinline class="w-full h-full object-contain rounded-lg shadow-lg">
+                <video autoplay loop muted playsinline class="w-full h-full object-cover rounded-lg shadow-lg">
                     <source src="images/Banner-vid-4.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
             <!-- Video Carousel Item 5 -->
             <div class="carousel-item">
-                <video autoplay loop muted playsinline class="w-full h-full object-contain rounded-lg shadow-lg">
+                <video autoplay loop muted playsinline class="w-full h-full object-cover rounded-lg shadow-lg">
                     <source src="images/Banner-vid-5.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
