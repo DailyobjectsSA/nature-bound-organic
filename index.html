@@ -70,6 +70,32 @@
             border-radius: 0.5rem; /* Apply rounded-lg from Tailwind */
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Apply shadow-lg from Tailwind */
         }
+
+        /* Styles for Product Card Image Slideshow */
+        .product-image-slideshow {
+            position: relative;
+            width: 100%;
+            height: 10rem; /* h-40 = 160px */
+            overflow: hidden;
+            border-radius: 0.5rem; /* rounded-lg */
+            margin-bottom: 1rem; /* mb-4 */
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* subtle shadow */
+        }
+
+        .product-image-slideshow img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Ensure no cropping */
+            opacity: 0;
+            transition: opacity 1s ease-in-out; /* Smooth fade */
+        }
+
+        .product-image-slideshow img.active {
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col font-sans">
@@ -109,7 +135,7 @@
             <a href="#cart" class="text-gray-600 hover:text-teal-600 transition-colors duration-200 flex items-center space-x-1">
                 <!-- Cart icon (SVG) -->
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                 </svg>
                 <span>Cart</span>
             </a>
@@ -192,9 +218,12 @@
             <section id="products" class="mt-16 pt-8 border-t border-gray-200">
                 <h2 class="text-3xl font-bold text-gray-800 mb-8">Our Products (Coming Soon!)</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Product Card 1: Lavender Bliss Soap -->
+                    <!-- Product Card 1: Lavender Bliss Soap - WITH IMAGE SLIDESHOW -->
                     <div class="bg-gray-50 p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center">
-                        <img src="https://placehold.co/300x200/9AE6B4/1A202C?text=Soap+Bar+1" alt="Organic Lavender Bliss Soap Bar" class="rounded-lg mb-4 w-full object-cover h-40">
+                        <div class="product-image-slideshow">
+                            <img src="images/LAVSOAP-1.png" alt="Organic Lavender Bliss Soap Bar 1" class="active">
+                            <img src="images/LAVSOAP-2.png" alt="Organic Lavender Bliss Soap Bar 2">
+                        </div>
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Lavender Bliss Soap</h3>
                         <p class="text-gray-600 text-sm mb-4">Relaxing lavender scent, nourishing olive oil.</p>
                         <button class="bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 px-6 rounded-full transition duration-300 ease-in-out btn-glow w-full mt-auto">
@@ -236,17 +265,18 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const carousel = document.getElementById('product-carousel');
-            const items = carousel.querySelectorAll('.carousel-item');
-            let currentIndex = 0;
-            const transitionDuration = 1000; // Corresponds to CSS transition: opacity 1s
-            const displayDuration = 4000; // How long each video is fully visible
-            const intervalTime = displayDuration + transitionDuration;
+            // Main video carousel logic
+            const mainCarousel = document.getElementById('product-carousel');
+            const mainVideoItems = mainCarousel.querySelectorAll('.carousel-item');
+            let mainVideoIndex = 0;
+            const mainTransitionDuration = 1000; // 1s CSS transition
+            const mainDisplayDuration = 4000; // How long each video is fully visible
+            const mainIntervalTime = mainDisplayDuration + mainTransitionDuration;
 
-            let slideInterval;
+            let mainSlideInterval;
 
-            function showSlide(index) {
-                items.forEach((item, i) => {
+            function showMainVideoSlide(index) {
+                mainVideoItems.forEach((item, i) => {
                     const video = item.querySelector('video');
                     if (video) {
                         video.pause();
@@ -255,37 +285,71 @@
                     item.classList.remove('active');
                 });
 
-                const activeItem = items[index];
+                const activeItem = mainVideoItems[index];
                 activeItem.classList.add('active');
                 const activeVideo = activeItem.querySelector('video');
                 if (activeVideo) {
                     activeVideo.play().catch(error => {
                         if (error.name !== 'AbortError') {
-                            console.error("Video play error:", error);
+                            console.error("Main video play error:", error);
                         }
                     });
                 }
             }
 
-            function nextSlide() {
-                currentIndex = (currentIndex + 1) % items.length;
-                showSlide(currentIndex);
+            function nextMainVideoSlide() {
+                mainVideoIndex = (mainVideoIndex + 1) % mainVideoItems.length;
+                showMainVideoSlide(mainVideoIndex);
             }
 
-            function startSlideShow() {
-                clearInterval(slideInterval);
-                slideInterval = setInterval(nextSlide, intervalTime);
+            function startMainSlideShow() {
+                clearInterval(mainSlideInterval);
+                mainSlideInterval = setInterval(nextMainVideoSlide, mainIntervalTime);
             }
 
-            if (items.length > 0) {
-                showSlide(currentIndex);
-                startSlideShow();
+            if (mainVideoItems.length > 0) {
+                showMainVideoSlide(mainVideoIndex);
+                startMainSlideShow();
             }
 
-            if (carousel) {
-                carousel.addEventListener('mouseenter', () => clearInterval(slideInterval));
-                carousel.addEventListener('mouseleave', startSlideShow);
+            if (mainCarousel) {
+                mainCarousel.addEventListener('mouseenter', () => clearInterval(mainSlideInterval));
+                mainCarousel.addEventListener('mouseleave', startMainSlideShow);
             }
+
+            // Product card image slideshow logic
+            const productCardSlideshows = document.querySelectorAll('.product-image-slideshow');
+
+            productCardSlideshows.forEach(slideshow => {
+                const images = slideshow.querySelectorAll('img');
+                let currentImageIndex = 0;
+                const imageDisplayDuration = 3000; // 3 seconds per image
+                const imageTransitionDuration = 1000; // 1s CSS transition
+                const imageIntervalTime = imageDisplayDuration + imageTransitionDuration;
+
+                function showProductImage(index) {
+                    images.forEach((img, i) => {
+                        if (i === index) {
+                            img.classList.add('active');
+                        } else {
+                            img.classList.remove('active');
+                        }
+                    });
+                }
+
+                function nextProductImage() {
+                    currentImageIndex = (currentImageIndex + 1) % images.length;
+                    showProductImage(currentImageIndex);
+                }
+
+                // Start slideshow only if there's more than one image
+                if (images.length > 1) {
+                    showProductImage(currentImageIndex); // Show initial image
+                    setInterval(nextProductImage, imageIntervalTime);
+                } else if (images.length === 1) {
+                    images[0].classList.add('active'); // Just show the single image
+                }
+            });
         });
     </script>
 </body>
