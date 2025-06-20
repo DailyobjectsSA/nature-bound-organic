@@ -66,7 +66,7 @@
         .carousel-item video {
             width: 100%; /* Video fills its item's width */
             height: 100%; /* Video fills its item's height */
-            object-fit: cover; /* Cover the area, cropping if aspect ratio doesn't match */
+            object-fit: contain; /* Changed from 'cover' to 'contain' to fit full video */
             border-radius: 0.5rem; /* Apply rounded-lg from Tailwind */
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Apply shadow-lg from Tailwind */
         }
@@ -133,35 +133,35 @@
         <div id="product-carousel" class="w-full h-64 md:h-96 relative">
             <!-- Video Carousel Item 1 -->
             <div class="carousel-item active">
-                <video autoplay loop muted playsinline class="w-full h-full object-cover rounded-lg shadow-lg">
+                <video autoplay loop muted playsinline class="w-full h-full object-contain rounded-lg shadow-lg">
                     <source src="images/Banner-vid-1.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
             <!-- Video Carousel Item 2 -->
             <div class="carousel-item">
-                <video autoplay loop muted playsinline class="w-full h-full object-cover rounded-lg shadow-lg">
+                <video autoplay loop muted playsinline class="w-full h-full object-contain rounded-lg shadow-lg">
                     <source src="images/Banner-vid-2.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
             <!-- Video Carousel Item 3 -->
             <div class="carousel-item">
-                <video autoplay loop muted playsinline class="w-full h-full object-cover rounded-lg shadow-lg">
+                <video autoplay loop muted playsinline class="w-full h-full object-contain rounded-lg shadow-lg">
                     <source src="images/Banner-vid-3.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
             <!-- Video Carousel Item 4 -->
             <div class="carousel-item">
-                <video autoplay loop muted playsinline class="w-full h-full object-cover rounded-lg shadow-lg">
+                <video autoplay loop muted playsinline class="w-full h-full object-contain rounded-lg shadow-lg">
                     <source src="images/Banner-vid-4.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
             <!-- Video Carousel Item 5 -->
             <div class="carousel-item">
-                <video autoplay loop muted playsinline class="w-full h-full object-cover rounded-lg shadow-lg">
+                <video autoplay loop muted playsinline class="w-full h-full object-contain rounded-lg shadow-lg">
                     <source src="images/Banner-vid-5.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -239,33 +239,27 @@
             const carousel = document.getElementById('product-carousel');
             const items = carousel.querySelectorAll('.carousel-item');
             let currentIndex = 0;
-            // Set interval time based on the video durations.
-            // A good starting point for seamless transitions.
             const transitionDuration = 1000; // Corresponds to CSS transition: opacity 1s
             const displayDuration = 4000; // How long each video is fully visible
-            const intervalTime = displayDuration + transitionDuration; // Total time for one cycle
+            const intervalTime = displayDuration + transitionDuration;
 
             let slideInterval;
 
             function showSlide(index) {
-                // First, pause all videos and hide all items
-                items.forEach(item => {
+                items.forEach((item, i) => {
                     const video = item.querySelector('video');
                     if (video) {
                         video.pause();
-                        video.currentTime = 0; // Reset video to start for next loop
+                        video.currentTime = 0;
                     }
-                    item.classList.remove('active'); // Remove active class for opacity transition
+                    item.classList.remove('active');
                 });
 
-                // Then, activate the target slide and attempt to play its video
                 const activeItem = items[index];
-                activeItem.classList.add('active'); // Add active class to fade in
+                activeItem.classList.add('active');
                 const activeVideo = activeItem.querySelector('video');
                 if (activeVideo) {
                     activeVideo.play().catch(error => {
-                        // Catch AbortError which is common if play() is called when not fully ready
-                        // or if the user interacts with the page before playback starts.
                         if (error.name !== 'AbortError') {
                             console.error("Video play error:", error);
                         }
@@ -279,18 +273,15 @@
             }
 
             function startSlideShow() {
-                clearInterval(slideInterval); // Clear any existing interval
+                clearInterval(slideInterval);
                 slideInterval = setInterval(nextSlide, intervalTime);
             }
 
-            // Initial display and start slideshow if there are items
             if (items.length > 0) {
                 showSlide(currentIndex);
                 startSlideShow();
             }
 
-            // Optional: Pause slideshow on hover and resume when not hovering
-            // This is good for user experience so they can read/see the banner
             if (carousel) {
                 carousel.addEventListener('mouseenter', () => clearInterval(slideInterval));
                 carousel.addEventListener('mouseleave', startSlideShow);
