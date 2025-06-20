@@ -66,7 +66,7 @@
         .carousel-item video {
             width: 100%; /* Video fills its item's width */
             height: 100%; /* Video fills its item's height */
-            object-fit: contain; /* Changed from 'cover' to 'contain' to fit full video */
+            object-fit: contain; /* 'contain' ensures full video is visible, adding letterboxing if aspect ratios differ */
             border-radius: 0.5rem; /* Apply rounded-lg from Tailwind */
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Apply shadow-lg from Tailwind */
         }
@@ -109,7 +109,7 @@
             <a href="#cart" class="text-gray-600 hover:text-teal-600 transition-colors duration-200 flex items-center space-x-1">
                 <!-- Cart icon (SVG) -->
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                 </svg>
                 <span>Cart</span>
             </a>
@@ -130,7 +130,7 @@
 
     <!-- Moving Banners / Product Carousel -->
     <section class="w-full relative overflow-hidden bg-gray-100 py-6">
-        <div id="product-carousel" class="w-full h-64 md:h-96 relative">
+        <div id="product-carousel" class="w-full h-[60vh] md:h-[70vh] relative"> <!-- Increased height using vh units -->
             <!-- Video Carousel Item 1 -->
             <div class="carousel-item active">
                 <video autoplay loop muted playsinline class="w-full h-full object-contain rounded-lg shadow-lg">
